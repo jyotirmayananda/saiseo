@@ -1,4 +1,5 @@
 import Hero from "@/components/home/Hero";
+import TrustBar from "@/components/home/TrustBar";
 import Showcase from "@/components/home/Showcase";
 import Courses from "@/components/home/Courses";
 import Services from "@/components/home/Services";
@@ -10,6 +11,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <TrustBar />
       <Showcase />
       <Courses />
       <Services />

@@ -19,7 +19,7 @@ const shortTermCourses = [
 
 export default function Courses() {
   return (
-    <section id="courses" className="bg-surface py-24 md:py-32">
+    <section id="courses" className="bg-gradient-to-b from-white to-sky-50/50 py-24 md:py-32">
       <div className="mx-auto max-w-[1200px] px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -29,10 +29,10 @@ export default function Courses() {
           className="text-center"
         >
           <p className="section-label text-teal-dark">Programs</p>
-          <h2 className="headline-lg mt-3 text-[#1d1d1f]">
+          <h2 className="headline-lg mt-3 text-[#0c2d48]">
             Courses designed for real careers.
           </h2>
-          <p className="body-lg mx-auto mt-4 max-w-xl text-[#86868b]">
+          <p className="mx-auto mt-4 max-w-xl text-lg text-[#1e4976]/70">
             From diploma programs to focused skill modules — pick the path that
             fits your ambition.
           </p>

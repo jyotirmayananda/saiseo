@@ -28,9 +28,15 @@ const config: Config = {
           light: "#FFD166",
         },
         surface: {
-          DEFAULT: "#f5f5f7",
+          DEFAULT: "#f8fcff",
           dark: "#1d1d1f",
-          darker: "#000000",
+          darker: "#0c2d48",
+        },
+        sky: {
+          deep: "#0c2d48",
+          mid: "#38bdf8",
+          light: "#e0f7fa",
+          pale: "#f0f9ff",
         },
       },
       fontFamily: {
