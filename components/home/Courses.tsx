@@ -3,11 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { GraduationCap, Clock, ArrowRight } from "lucide-react";
+import SectionHeader from "@/components/ui/SectionHeader";
 import { images } from "@/lib/images";
 
 const softwareCourses = [
-  { name: "PGDCA", desc: "Post Graduate Diploma" },
+  { name: "PGDCA", desc: "Post Graduate Diploma in Computer Applications" },
   { name: "DCA", desc: "Diploma in Computer Applications" },
   { name: "CCA", desc: "Certificate in Computer Applications" },
 ];
@@ -19,135 +20,95 @@ const shortTermCourses = [
 
 export default function Courses() {
   return (
-    <section id="courses" className="bg-gradient-to-b from-white to-sky-50/50 py-24 md:py-32">
-      <div className="mx-auto max-w-[1200px] px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center"
-        >
-          <p className="section-label text-teal-dark">Programs</p>
-          <h2 className="headline-lg mt-3 text-[#0c2d48]">
-            Courses designed for real careers.
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-[#1e4976]/70">
-            From diploma programs to focused skill modules — pick the path that
-            fits your ambition.
-          </p>
-        </motion.div>
+    <section id="courses" className="section-padding bg-surface">
+      <div className="container-main">
+        <SectionHeader
+          label="Programs"
+          title="Courses for every career path"
+          description="From full diploma programs to focused short-term modules — choose what fits your goals."
+        />
 
-        {/* Bento grid — Apple/Samsung style */}
-        <div className="mt-16 grid gap-4 md:grid-cols-2 md:grid-rows-2 md:gap-5">
-          {/* Large software card */}
+        <div className="mt-12 grid gap-6 lg:grid-cols-2">
+          {/* Software courses */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="group relative min-h-[420px] overflow-hidden rounded-4xl bg-[#1d1d1f] md:row-span-2"
+            className="card-hover overflow-hidden"
           >
-            <Image
-              src={images.courses.software}
-              alt="Software development course"
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-            <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-10">
-              <p className="text-xs font-semibold uppercase tracking-widest text-teal-light">
-                Diploma Programs
-              </p>
-              <h3 className="mt-2 font-heading text-3xl font-semibold text-white md:text-4xl">
-                Software Courses
-              </h3>
-              <div className="mt-6 space-y-3">
+            <div className="relative h-48">
+              <Image
+                src={images.courses.software}
+                alt="Software courses"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-brand/50" />
+              <div className="absolute bottom-4 left-5 flex items-center gap-2 text-white">
+                <GraduationCap size={20} />
+                <span className="font-heading font-semibold">Software Courses</span>
+              </div>
+            </div>
+            <div className="p-6">
+              <div className="space-y-3">
                 {softwareCourses.map((c) => (
                   <div
                     key={c.name}
-                    className="flex items-center justify-between rounded-2xl bg-white/10 px-5 py-3 backdrop-blur-md"
+                    className="flex items-center justify-between rounded-xl bg-surface-2 px-4 py-3"
                   >
                     <div>
-                      <p className="font-semibold text-white">{c.name}</p>
-                      <p className="text-xs text-white/60">{c.desc}</p>
+                      <p className="font-semibold text-brand">{c.name}</p>
+                      <p className="text-xs text-muted">{c.desc}</p>
                     </div>
-                    <ArrowUpRight size={18} className="text-teal-light" />
+                    <span className="rounded-full bg-teal/10 px-2.5 py-0.5 text-xs font-bold text-teal-dark">
+                      Diploma
+                    </span>
                   </div>
                 ))}
               </div>
             </div>
           </motion.div>
 
-          {/* Short term card */}
+          {/* Short term */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="group relative min-h-[280px] overflow-hidden rounded-4xl bg-white"
+            transition={{ delay: 0.1 }}
+            className="card-hover overflow-hidden"
           >
-            <Image
-              src={images.courses.shortTerm}
-              alt="Short term computer courses"
-              fill
-              className="object-cover opacity-20 transition-transform duration-700 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-            <div className="relative flex h-full flex-col justify-between p-8">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-maroon">
-                  Quick Skills
-                </p>
-                <h3 className="mt-2 font-heading text-2xl font-semibold text-[#1d1d1f]">
-                  Short Term Courses
-                </h3>
+            <div className="relative h-48">
+              <Image
+                src={images.courses.shortTerm}
+                alt="Short term courses"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-maroon/40" />
+              <div className="absolute bottom-4 left-5 flex items-center gap-2 text-white">
+                <Clock size={20} />
+                <span className="font-heading font-semibold">Short Term Courses</span>
               </div>
+            </div>
+            <div className="p-6">
               <div className="flex flex-wrap gap-2">
                 {shortTermCourses.map((course) => (
                   <span
                     key={course}
-                    className="rounded-full bg-[#f5f5f7] px-3.5 py-1.5 text-xs font-medium text-[#1d1d1f] transition-colors hover:bg-teal/10 hover:text-teal-dark"
+                    className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-brand"
                   >
                     {course}
                   </span>
                 ))}
               </div>
-            </div>
-          </motion.div>
-
-          {/* Classroom highlight */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="group relative min-h-[200px] overflow-hidden rounded-4xl"
-          >
-            <Image
-              src={images.courses.classroom}
-              alt="Students in classroom"
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-            <div className="absolute inset-0 bg-teal/80 mix-blend-multiply" />
-            <div className="absolute inset-0 flex items-center justify-center p-8 text-center">
-              <div>
-                <p className="font-heading text-2xl font-semibold text-white">
-                  Hands-on learning.
-                </p>
-                <p className="mt-2 text-sm text-white/80">
-                  Every course includes practical lab sessions.
-                </p>
-                <Link
-                  href="/#contact"
-                  className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-white underline-offset-4 hover:underline"
-                >
-                  Enroll today <ArrowUpRight size={14} />
-                </Link>
-              </div>
+              <Link
+                href="/#contact"
+                className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-teal-dark hover:underline"
+              >
+                Enquire now <ArrowRight size={14} />
+              </Link>
             </div>
           </motion.div>
         </div>

@@ -7,30 +7,24 @@ import { images } from "@/lib/images";
 
 export default function HeroBackground() {
   const { scrollY } = useScroll();
-  const imageY = useTransform(scrollY, [0, 700], [0, 80]);
-  const imageOpacity = useTransform(scrollY, [0, 500], [1, 0.4]);
+  const imageY = useTransform(scrollY, [0, 600], [0, 60]);
 
   return (
-    <div className="absolute inset-0 overflow-hidden bg-[#87CEEB]">
+    <div className="absolute inset-0 overflow-hidden bg-sky-100">
       <SkyAnimation />
-
-      {/* Campus horizon — grounded professional imagery */}
       <motion.div
-        style={{ y: imageY, opacity: imageOpacity }}
-        className="absolute bottom-0 left-0 right-0 h-[38%] md:h-[42%]"
+        style={{ y: imageY }}
+        className="absolute bottom-0 left-0 right-0 h-[32%] md:h-[36%]"
       >
-        <div className="relative h-full w-full">
-          <Image
-            src={images.hero}
-            alt={images.heroAlt}
-            fill
-            priority
-            className="object-cover object-top"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0c2d48]/20 via-transparent to-[#0c2d48]/10" />
-        </div>
+        <Image
+          src={images.hero}
+          alt=""
+          fill
+          priority
+          className="object-cover object-top opacity-90"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/60 to-transparent" />
       </motion.div>
     </div>
   );

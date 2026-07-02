@@ -3,14 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #0c2d48;
-  --surface: #f8fcff;
-  --muted: #64748b;
+  --brand: #0c2d48;
+  --brand-light: #1a5276;
   --accent: #2dbfb8;
-  --sky-deep: #0c2d48;
-  --sky-mid: #38bdf8;
-  --sky-light: #e0f7fa;
+  --accent-dark: #1fa39d;
+  --maroon: #b5335a;
+  --background: #ffffff;
+  --surface: #f8fcff;
+  --surface-2: #f0f9ff;
+  --foreground: #0c2d48;
+  --muted: #64748b;
+  --border: #e2e8f0;
 }
 
 html {
@@ -23,7 +26,60 @@ body {
   font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer components {
+  .section-label {
+    @apply inline-block text-xs font-bold uppercase tracking-[0.18em] text-teal-dark;
+  }
+
+  .headline-xl {
+    @apply font-heading text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl;
+  }
+
+  .headline-lg {
+    @apply font-heading text-3xl font-bold tracking-tight sm:text-4xl;
+  }
+
+  .text-brand {
+    color: var(--brand);
+  }
+
+  .text-muted {
+    @apply text-slate-500;
+  }
+
+  .section-padding {
+    @apply py-20 md:py-28;
+  }
+
+  .container-main {
+    @apply mx-auto max-w-6xl px-5 sm:px-6;
+  }
+
+  .card {
+    @apply rounded-2xl border border-slate-200/80 bg-white shadow-sm shadow-slate-200/50;
+  }
+
+  .card-hover {
+    @apply card transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200/80;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-brand px-7 py-3 text-sm font-semibold text-white shadow-md shadow-brand/20 transition-all hover:bg-brand-light hover:shadow-lg;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-7 py-3 text-sm font-semibold text-brand transition-all hover:border-teal/40 hover:bg-surface-2;
+  }
+
+  .btn-teal {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-teal px-7 py-3 text-sm font-semibold text-white transition-all hover:bg-teal-dark;
+  }
+
+  .input-field {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-brand placeholder:text-slate-400 focus:border-teal focus:outline-none focus:ring-2 focus:ring-teal/20;
+  }
 }
 
 @layer utilities {
@@ -31,162 +87,44 @@ body {
     text-wrap: balance;
   }
 
-  .section-label {
-    @apply text-xs font-semibold uppercase tracking-[0.2em] text-teal;
+  .bg-brand {
+    background-color: var(--brand);
   }
 
-  .headline-xl {
-    @apply font-heading text-4xl font-semibold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl;
+  .bg-brand-light {
+    background-color: var(--brand-light);
   }
 
-  .headline-lg {
-    @apply font-heading text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl;
+  .bg-surface {
+    background-color: var(--surface);
   }
 
-  .body-lg {
-    @apply text-lg leading-relaxed text-[#86868b] sm:text-xl;
+  .bg-surface-2 {
+    background-color: var(--surface-2);
   }
 
-  .glass-nav {
-    @apply border-b border-white/10 bg-black/70 backdrop-blur-2xl backdrop-saturate-150;
-  }
-
-  .glass-nav-light {
-    @apply border-b border-black/5 bg-white/80 backdrop-blur-2xl backdrop-saturate-150;
-  }
-
-  .image-overlay {
-    @apply absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black;
-  }
-
-  .bento-card {
-    @apply relative overflow-hidden rounded-3xl bg-[#1d1d1f] transition-transform duration-500;
-  }
-
-  /* Hero animated background layers */
-  .hero-aurora {
-    background: linear-gradient(
-      125deg,
-      transparent 0%,
-      rgba(45, 191, 184, 0.15) 25%,
-      rgba(244, 185, 66, 0.1) 50%,
-      rgba(181, 51, 90, 0.12) 75%,
-      transparent 100%
-    );
-    background-size: 400% 400%;
-    animation: auroraShift 12s ease-in-out infinite;
-  }
-
-  .hero-sweep {
-    background: linear-gradient(
-      105deg,
-      transparent 40%,
-      rgba(255, 255, 255, 0.06) 50%,
-      transparent 60%
-    );
-    width: 60%;
-  }
-
-  .hero-grid {
-    background-image: linear-gradient(
-        rgba(255, 255, 255, 0.5) 1px,
-        transparent 1px
-      ),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.5) 1px, transparent 1px);
-    background-size: 60px 60px;
-    animation: gridDrift 20s linear infinite;
-  }
-
-  /* Sky animation layers */
+  /* Sky hero */
   .sky-gradient {
     background: linear-gradient(
-      180deg,
-      #0c2d48 0%,
-      #1a5276 12%,
-      #2980b9 28%,
-      #5dade2 48%,
-      #85c1e9 62%,
-      #aed6f1 78%,
-      #d6eaf8 90%,
-      #ebf5fb 100%
+      165deg,
+      #e0f2fe 0%,
+      #bae6fd 25%,
+      #7dd3fc 45%,
+      #38bdf8 65%,
+      #0ea5e9 85%,
+      #0284c7 100%
     );
-    background-size: 100% 200%;
-    animation: skyShift 18s ease-in-out infinite;
+    background-size: 100% 120%;
+    animation: skyShift 20s ease-in-out infinite;
   }
 
   .sky-horizon {
     background: linear-gradient(
       to top,
-      rgba(255, 255, 255, 0.9) 0%,
-      rgba(224, 247, 250, 0.4) 40%,
+      #ffffff 0%,
+      rgba(255, 255, 255, 0.85) 30%,
       transparent 100%
     );
-  }
-
-  .sky-beams {
-    background: repeating-linear-gradient(
-      -45deg,
-      transparent,
-      transparent 80px,
-      rgba(255, 255, 255, 0.03) 80px,
-      rgba(255, 255, 255, 0.06) 160px
-    );
-    animation: beamShift 20s linear infinite;
-  }
-
-  .sun-rays {
-    background: conic-gradient(
-      from 0deg,
-      transparent 0deg,
-      rgba(255, 224, 102, 0.15) 10deg,
-      transparent 20deg,
-      transparent 40deg,
-      rgba(255, 224, 102, 0.12) 50deg,
-      transparent 60deg,
-      transparent 80deg,
-      rgba(255, 224, 102, 0.15) 90deg,
-      transparent 100deg,
-      transparent 120deg,
-      rgba(255, 224, 102, 0.1) 130deg,
-      transparent 140deg,
-      transparent 160deg,
-      rgba(255, 224, 102, 0.14) 170deg,
-      transparent 180deg,
-      transparent 200deg,
-      rgba(255, 224, 102, 0.12) 210deg,
-      transparent 220deg,
-      transparent 240deg,
-      rgba(255, 224, 102, 0.15) 250deg,
-      transparent 260deg,
-      transparent 280deg,
-      rgba(255, 224, 102, 0.1) 290deg,
-      transparent 300deg,
-      transparent 320deg,
-      rgba(255, 224, 102, 0.13) 330deg,
-      transparent 340deg
-    );
-  }
-}
-
-@keyframes auroraShift {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  33% {
-    background-position: 100% 0%;
-  }
-  66% {
-    background-position: 0% 100%;
-  }
-}
-
-@keyframes gridDrift {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(60px);
   }
 }
 
@@ -197,14 +135,5 @@ body {
   }
   50% {
     background-position: 0% 100%;
-  }
-}
-
-@keyframes beamShift {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(160px);
   }
 }

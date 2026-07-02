@@ -3,7 +3,5 @@ export default function AdminLoginLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div className="min-h-screen bg-black text-white">{children}</div>
-  );
+  return <div className="min-h-screen bg-surface">{children}</div>;
 }

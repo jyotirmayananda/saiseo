@@ -4,26 +4,22 @@ import { motion, HTMLMotionProps } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface ButtonProps extends HTMLMotionProps<"button"> {
-  variant?: "primary" | "secondary" | "outline" | "ghost" | "apple" | "apple-dark";
+  variant?: "primary" | "secondary" | "outline" | "ghost" | "danger";
   size?: "sm" | "md" | "lg";
 }
 
 const variants = {
-  primary: "bg-teal text-white hover:bg-teal-dark",
-  secondary: "bg-maroon text-white hover:bg-maroon-dark",
-  outline:
-    "border border-white/30 bg-transparent text-white hover:bg-white/10",
-  ghost: "text-[#86868b] hover:text-white hover:bg-white/5",
-  apple:
-    "rounded-full bg-teal px-7 text-white hover:bg-teal-dark shadow-lg shadow-teal/20",
-  "apple-dark":
-    "rounded-full bg-white text-black hover:bg-gray-100",
+  primary: "bg-teal text-white hover:bg-teal-dark shadow-sm",
+  secondary: "bg-brand text-white hover:bg-brand-light shadow-sm",
+  outline: "border border-slate-200 bg-white text-brand hover:bg-surface",
+  ghost: "text-slate-600 hover:bg-surface-2",
+  danger: "bg-red-600 text-white hover:bg-red-700",
 };
 
 const sizes = {
-  sm: "px-4 py-2 text-sm",
-  md: "px-6 py-2.5 text-sm font-medium",
-  lg: "px-8 py-3.5 text-base font-medium",
+  sm: "px-3 py-1.5 text-sm rounded-lg",
+  md: "px-5 py-2.5 text-sm rounded-xl",
+  lg: "px-7 py-3 text-base rounded-xl",
 };
 
 export default function Button({
@@ -33,15 +29,11 @@ export default function Button({
   children,
   ...props
 }: ButtonProps) {
-  const isApple = variant === "apple" || variant === "apple-dark";
-
   return (
     <motion.button
-      whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       className={cn(
-        "inline-flex items-center justify-center gap-2 font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-teal/40 disabled:cursor-not-allowed disabled:opacity-50",
-        !isApple && "rounded-xl",
+        "inline-flex items-center justify-center gap-2 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-teal/30 disabled:opacity-50",
         variants[variant],
         sizes[size],
         className

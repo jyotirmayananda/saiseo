@@ -1,14 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   Users,
   UserPlus,
-  FileText,
   LogOut,
-  GraduationCap,
   Menu,
   X,
 } from "lucide-react";
@@ -19,7 +18,6 @@ const links = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/students", label: "Students", icon: Users },
   { href: "/admin/students/new", label: "Add Student", icon: UserPlus },
-  { href: "/admin/students", label: "Results", icon: FileText },
 ];
 
 export default function Sidebar() {
@@ -33,15 +31,13 @@ export default function Sidebar() {
     router.refresh();
   };
 
-  const navContent = (
+  const nav = (
     <>
-      <div className="flex items-center gap-2 border-b border-white/10 px-6 py-5">
-        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-teal text-white">
-          <GraduationCap size={18} />
-        </div>
+      <div className="flex items-center gap-2.5 border-b border-slate-200 px-5 py-5">
+        <Image src="/logo.svg" alt="Sai SEO" width={32} height={32} />
         <div>
-          <p className="font-heading text-sm font-bold text-white">Sai SEO</p>
-          <p className="text-[10px] text-gray-400">Admin Panel</p>
+          <p className="font-heading text-sm font-bold text-brand">Sai SEO</p>
+          <p className="text-[10px] text-muted">Admin Panel</p>
         </div>
       </div>
 
@@ -49,21 +45,18 @@ export default function Sidebar() {
         {links.map((link) => {
           const isActive =
             pathname === link.href ||
-            (link.href !== "/admin/dashboard" &&
-              pathname.startsWith(link.href) &&
-              link.label !== "Results") ||
-            (link.label === "Results" && pathname.startsWith("/admin/students"));
+            (link.href !== "/admin/dashboard" && pathname.startsWith(link.href));
 
           return (
             <Link
-              key={`${link.href}-${link.label}`}
+              key={link.href}
               href={link.href}
               onClick={() => setMobileOpen(false)}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+                "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
                 isActive
-                  ? "bg-teal/20 text-teal"
-                  : "text-gray-300 hover:bg-white/5 hover:text-white"
+                  ? "bg-teal/10 text-teal-dark"
+                  : "text-slate-600 hover:bg-surface-2 hover:text-brand"
               )}
             >
               <link.icon size={18} />
@@ -73,10 +66,10 @@ export default function Sidebar() {
         })}
       </nav>
 
-      <div className="border-t border-white/10 p-3">
+      <div className="border-t border-slate-200 p-3">
         <button
           onClick={handleLogout}
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-300 transition-colors hover:bg-red-500/10 hover:text-red-400"
+          className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-red-50 hover:text-red-600"
         >
           <LogOut size={18} />
           Logout
@@ -88,27 +81,27 @@ export default function Sidebar() {
   return (
     <>
       <button
-        className="fixed top-4 left-4 z-50 rounded-xl border border-white/10 bg-[#1d1d1f] p-2 text-white lg:hidden"
+        className="fixed top-4 left-4 z-50 rounded-xl border border-slate-200 bg-white p-2 shadow-soft lg:hidden"
         onClick={() => setMobileOpen(!mobileOpen)}
-        aria-label="Toggle sidebar"
+        aria-label="Toggle menu"
       >
         {mobileOpen ? <X size={20} /> : <Menu size={20} />}
       </button>
 
       {mobileOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+          className="fixed inset-0 z-40 bg-brand/30 lg:hidden"
           onClick={() => setMobileOpen(false)}
         />
       )}
 
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-white/10 bg-[#1d1d1f] transition-transform lg:translate-x-0",
+          "fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-slate-200 bg-white transition-transform lg:translate-x-0",
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        {navContent}
+        {nav}
       </aside>
     </>
   );

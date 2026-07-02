@@ -45,20 +45,13 @@ export default function EditStudentPage({
       .finally(() => setLoading(false));
   }, [params.id]);
 
-  if (loading) {
-    return <p className="text-[#86868b]">Loading student data...</p>;
-  }
-
-  if (notFound || !initialData) {
-    return <p className="text-red-400">Student not found.</p>;
-  }
+  if (loading) return <p className="text-muted">Loading...</p>;
+  if (notFound || !initialData) return <p className="text-red-600">Student not found.</p>;
 
   return (
     <div>
-      <h1 className="font-heading text-2xl font-semibold text-white">
-        Edit Student
-      </h1>
-      <p className="mt-1 text-[#86868b]">Update student information and results.</p>
+      <h1 className="font-heading text-2xl font-bold text-brand">Edit Student</h1>
+      <p className="mt-1 text-muted">Update student information and results.</p>
       <div className="mt-8">
         <StudentForm studentId={params.id} initialData={initialData} />
       </div>

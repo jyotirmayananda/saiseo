@@ -1,54 +1,33 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
-import { images } from "@/lib/images";
+import { Award } from "lucide-react";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function ISOBadge() {
   return (
-    <section className="relative overflow-hidden bg-black py-24 md:py-32">
-      <div className="mx-auto max-w-[1200px] px-6">
+    <section className="section-padding bg-surface-2">
+      <div className="container-main">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative overflow-hidden rounded-4xl"
+          className="card overflow-hidden shadow-card"
         >
-          <div className="relative aspect-[21/9] min-h-[280px]">
-            <Image
-              src={images.iso}
-              alt="ISO certification quality standards"
-              fill
-              className="object-cover"
-              sizes="1200px"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40" />
-          </div>
-
-          <div className="absolute inset-0 flex items-center">
-            <div className="grid w-full items-center gap-8 px-8 md:grid-cols-2 md:px-16">
-              <div>
-                <p className="section-label">Quality Assured</p>
-                <h2 className="headline-lg mt-3 text-white">
-                  ISO 9001:2015
-                  <br />
-                  Certified.
-                </h2>
-                <p className="mt-4 max-w-md text-white/60">
-                  Our commitment to quality management in education and IT
-                  services meets international standards — so you learn with
-                  confidence.
-                </p>
-              </div>
-              <div className="flex justify-center md:justify-end">
-                <div className="flex h-36 w-36 flex-col items-center justify-center rounded-full border-2 border-gold/40 bg-black/50 backdrop-blur-md md:h-44 md:w-44">
-                  <span className="font-heading text-3xl font-bold text-gold md:text-4xl">
-                    ISO
-                  </span>
-                  <span className="text-xs font-medium tracking-widest text-white/60">
-                    9001:2015
-                  </span>
-                </div>
+          <div className="grid items-center gap-8 p-8 md:grid-cols-[1fr_auto] md:p-12">
+            <div>
+              <SectionHeader
+                label="Quality Assured"
+                title="ISO 9001:2015 Certified Institute"
+                description="Our quality management system meets international standards for education and IT services — giving you confidence in every program."
+                align="left"
+              />
+            </div>
+            <div className="flex justify-center">
+              <div className="flex h-36 w-36 flex-col items-center justify-center rounded-full border-2 border-gold/50 bg-gradient-to-br from-gold/10 to-teal/5 md:h-40 md:w-40">
+                <Award size={32} className="text-gold" />
+                <p className="mt-2 font-heading text-2xl font-bold text-brand">ISO</p>
+                <p className="text-xs font-semibold text-muted">9001:2015</p>
               </div>
             </div>
           </div>

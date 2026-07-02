@@ -6,7 +6,7 @@ export default function AdminPanelLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-surface">
       <Sidebar />
       <div className="lg:pl-64">
         <main className="min-h-screen p-4 pt-16 lg:p-8 lg:pt-8">{children}</main>

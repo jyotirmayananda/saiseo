@@ -56,8 +56,7 @@ export default function StudentTable() {
   }, [fetchStudents]);
 
   const handleDelete = async (id: string, name: string) => {
-    if (!confirm(`Delete student "${name}"? This cannot be undone.`)) return;
-
+    if (!confirm(`Delete student "${name}"?`)) return;
     await fetch(`/api/students/${id}`, { method: "DELETE" });
     fetchStudents();
     router.refresh();
@@ -65,21 +64,18 @@ export default function StudentTable() {
 
   return (
     <div>
-      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="relative max-w-sm flex-1">
-          <Search
-            size={18}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-[#86868b]"
-          />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
           <input
             type="text"
-            placeholder="Search by roll number or name..."
+            placeholder="Search roll number or name..."
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
               setPage(1);
             }}
-            className="w-full rounded-xl border border-white/10 bg-white/5 py-2.5 pl-10 pr-4 text-sm text-white placeholder:text-white/30 focus:border-teal focus:outline-none focus:ring-2 focus:ring-teal/20"
+            className="input-field pl-9"
           />
         </div>
         <Link href="/admin/students/new">
@@ -87,66 +83,49 @@ export default function StudentTable() {
         </Link>
       </div>
 
-      <div className="overflow-x-auto rounded-2xl border border-white/10 bg-[#1d1d1f]">
+      <div className="card overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-white/10 bg-white/5">
-              <th className="px-4 py-3 text-left font-medium text-[#86868b]">
-                Roll Number
-              </th>
-              <th className="px-4 py-3 text-left font-medium text-[#86868b]">
-                Name
-              </th>
-              <th className="px-4 py-3 text-left font-medium text-[#86868b]">
-                Course
-              </th>
-              <th className="px-4 py-3 text-right font-medium text-[#86868b]">
-                Actions
-              </th>
+            <tr className="border-b border-slate-200 bg-surface">
+              <th className="px-4 py-3 text-left font-semibold text-muted">Roll No.</th>
+              <th className="px-4 py-3 text-left font-semibold text-muted">Name</th>
+              <th className="px-4 py-3 text-left font-semibold text-muted">Course</th>
+              <th className="px-4 py-3 text-right font-semibold text-muted">Actions</th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={4} className="px-4 py-8 text-center text-[#86868b]">
+                <td colSpan={4} className="px-4 py-8 text-center text-muted">
                   Loading...
                 </td>
               </tr>
             ) : students.length === 0 ? (
               <tr>
-                <td colSpan={4} className="px-4 py-8 text-center text-[#86868b]">
+                <td colSpan={4} className="px-4 py-8 text-center text-muted">
                   No students found.
                 </td>
               </tr>
             ) : (
-              students.map((student) => (
-                <tr
-                  key={student.id}
-                  className="border-t border-white/5 transition-colors hover:bg-white/[0.02]"
-                >
-                  <td className="px-4 py-3 font-medium text-white">
-                    {student.rollNumber}
-                  </td>
-                  <td className="px-4 py-3 text-white/80">{student.name}</td>
-                  <td className="px-4 py-3 text-white/80">{student.course}</td>
+              students.map((s) => (
+                <tr key={s.id} className="border-b border-slate-100 last:border-0">
+                  <td className="px-4 py-3 font-medium text-brand">{s.rollNumber}</td>
+                  <td className="px-4 py-3">{s.name}</td>
+                  <td className="px-4 py-3">{s.course}</td>
                   <td className="px-4 py-3">
-                    <div className="flex items-center justify-end gap-2">
-                      <Link href={`/admin/students/${student.id}/edit`}>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="!p-2 text-white/60 hover:bg-white/10 hover:text-white"
-                        >
-                          <Pencil size={16} />
+                    <div className="flex justify-end gap-1">
+                      <Link href={`/admin/students/${s.id}/edit`}>
+                        <Button variant="ghost" size="sm" className="!p-2">
+                          <Pencil size={15} />
                         </Button>
                       </Link>
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="!p-2 text-red-400 hover:bg-red-500/10 hover:text-red-300"
-                        onClick={() => handleDelete(student.id, student.name)}
+                        className="!p-2 text-red-500 hover:bg-red-50"
+                        onClick={() => handleDelete(s.id, s.name)}
                       >
-                        <Trash2 size={16} />
+                        <Trash2 size={15} />
                       </Button>
                     </div>
                   </td>
@@ -158,29 +137,20 @@ export default function StudentTable() {
       </div>
 
       {pagination.totalPages > 1 && (
-        <div className="mt-4 flex items-center justify-between">
-          <p className="text-sm text-[#86868b]">
-            {pagination.total} student{pagination.total !== 1 ? "s" : ""} total
-          </p>
+        <div className="mt-4 flex items-center justify-between text-sm">
+          <p className="text-muted">{pagination.total} students</p>
           <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              disabled={page <= 1}
-              onClick={() => setPage((p) => p - 1)}
-              className="border-white/20 text-white hover:bg-white/10"
-            >
+            <Button variant="outline" size="sm" disabled={page <= 1} onClick={() => setPage((p) => p - 1)}>
               Previous
             </Button>
-            <span className="flex items-center px-3 text-sm text-[#86868b]">
-              Page {page} of {pagination.totalPages}
+            <span className="flex items-center px-2 text-muted">
+              {page} / {pagination.totalPages}
             </span>
             <Button
               variant="outline"
               size="sm"
               disabled={page >= pagination.totalPages}
               onClick={() => setPage((p) => p + 1)}
-              className="border-white/20 text-white hover:bg-white/10"
             >
               Next
             </Button>

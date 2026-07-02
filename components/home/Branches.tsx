@@ -2,105 +2,93 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { MapPin, Phone, ArrowUpRight } from "lucide-react";
+import { MapPin, Phone } from "lucide-react";
+import SectionHeader from "@/components/ui/SectionHeader";
 import { images } from "@/lib/images";
 
 const branches = [
   {
     name: "Main Branch",
+    tag: "Head Office",
     address: "Hatibandha Street, Brahmapur",
     phones: ["9437020011", "9437020012"],
-    primary: true,
   },
   {
     name: "Branch Office",
+    tag: "Branch",
     address: "Gurunthi Main Road, Berhampur",
     phones: ["9437020013"],
-    primary: false,
   },
 ];
 
 export default function Branches() {
   return (
-    <section id="branches" className="bg-surface py-24 md:py-32">
-      <div className="mx-auto max-w-[1200px] px-6">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <p className="section-label text-teal-dark">Locations</p>
-            <h2 className="headline-lg mt-3 text-[#1d1d1f]">
-              Visit us in Berhampur.
-            </h2>
-            <p className="mt-4 text-lg text-[#86868b]">
-              Two convenient locations to serve students and clients across the
-              region.
-            </p>
+    <section id="branches" className="section-padding bg-white">
+      <div className="container-main">
+        <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <SectionHeader
+              label="Locations"
+              title="Visit us in Berhampur"
+              description="Two convenient locations to serve students and clients across the region."
+              align="left"
+            />
 
-            <div className="mt-10 space-y-4">
-              {branches.map((branch) => (
-                <div
+            <div className="mt-8 space-y-4">
+              {branches.map((branch, i) => (
+                <motion.div
                   key={branch.name}
-                  className="group rounded-3xl border border-black/5 bg-white p-6 transition-shadow hover:shadow-xl hover:shadow-black/5"
+                  initial={{ opacity: 0, x: -16 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                  className="card-hover p-5"
                 >
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-widest text-teal">
-                        {branch.primary ? "Head Office" : "Branch"}
-                      </p>
-                      <h3 className="mt-1 font-heading text-xl font-semibold text-[#1d1d1f]">
-                        {branch.name}
-                      </h3>
-                    </div>
-                    <ArrowUpRight
-                      size={20}
-                      className="text-[#86868b] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-teal"
-                    />
+                  <span className="text-xs font-bold uppercase tracking-wider text-teal-dark">
+                    {branch.tag}
+                  </span>
+                  <h3 className="mt-1 font-heading text-lg font-semibold text-brand">
+                    {branch.name}
+                  </h3>
+                  <div className="mt-3 flex items-start gap-2 text-sm text-muted">
+                    <MapPin size={15} className="mt-0.5 shrink-0 text-teal" />
+                    {branch.address}
                   </div>
-                  <div className="mt-4 flex items-start gap-3 text-[#86868b]">
-                    <MapPin size={16} className="mt-0.5 shrink-0 text-teal" />
-                    <p className="text-sm">{branch.address}</p>
-                  </div>
-                  <div className="mt-3 space-y-1.5">
+                  <div className="mt-2 space-y-1">
                     {branch.phones.map((phone) => (
                       <a
                         key={phone}
                         href={`tel:${phone}`}
-                        className="flex items-center gap-2 text-sm font-medium text-[#1d1d1f] transition-colors hover:text-teal"
+                        className="flex items-center gap-2 text-sm font-medium text-brand hover:text-teal-dark"
                       >
                         <Phone size={14} className="text-teal" />
                         +91 {phone}
                       </a>
                     ))}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 16 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="relative aspect-[4/5] overflow-hidden rounded-4xl lg:aspect-square"
+            className="card overflow-hidden shadow-card"
           >
-            <Image
-              src={images.branch}
-              alt="Sai SEO Solution office"
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-8">
-              <p className="font-heading text-2xl font-semibold text-white">
-                Open for admissions
-              </p>
-              <p className="mt-1 text-sm text-white/70">
+            <div className="relative aspect-[4/3] lg:aspect-square">
+              <Image
+                src={images.branch}
+                alt="Sai SEO Solution office"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </div>
+            <div className="border-t border-slate-100 bg-surface p-5">
+              <p className="font-heading font-semibold text-brand">Open for admissions</p>
+              <p className="mt-1 text-sm text-muted">
                 Walk in or call to schedule a campus visit.
               </p>
             </div>

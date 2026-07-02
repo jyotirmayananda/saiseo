@@ -47,11 +47,7 @@ export default function StudentForm({ studentId, initialData }: StudentFormProps
     },
   });
 
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "results",
-  });
-
+  const { fields, append, remove } = useFieldArray({ control, name: "results" });
   const results = watch("results");
   const stats = calculateResultStats(
     (results || []).map((r) => ({
@@ -67,28 +63,21 @@ export default function StudentForm({ studentId, initialData }: StudentFormProps
   const onSubmit = async (data: StudentFormData) => {
     setLoading(true);
     setError("");
-
     try {
-      const url = isEdit ? `/api/students/${studentId}` : "/api/students";
-      const method = isEdit ? "PUT" : "POST";
-
-      const res = await fetch(url, {
-        method,
+      const res = await fetch(isEdit ? `/api/students/${studentId}` : "/api/students", {
+        method: isEdit ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-
       const json = await res.json();
-
       if (!res.ok) {
-        setError(json.error || "Failed to save student");
+        setError(json.error || "Failed to save");
         return;
       }
-
       router.push("/admin/students");
       router.refresh();
     } catch {
-      setError("Something went wrong. Please try again.");
+      setError("Something went wrong.");
     } finally {
       setLoading(false);
     }
@@ -96,119 +85,71 @@ export default function StudentForm({ studentId, initialData }: StudentFormProps
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      <div className="rounded-2xl border border-white/10 bg-[#1d1d1f] p-6">
-        <h2 className="font-heading text-lg font-semibold text-white">
-          Student Information
-        </h2>
+      <div className="card p-6">
+        <h2 className="font-heading font-semibold text-brand">Student Information</h2>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
-          <Input dark label="Full Name" error={errors.name?.message} {...register("name")} />
-          <Input dark label="Roll Number" error={errors.rollNumber?.message} {...register("rollNumber")} />
+          <Input label="Full Name" error={errors.name?.message} {...register("name")} />
+          <Input label="Roll Number" error={errors.rollNumber?.message} {...register("rollNumber")} />
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-[#86868b]">
-              Course
-            </label>
-            <select
-              {...register("course")}
-              className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-white focus:border-teal focus:outline-none focus:ring-2 focus:ring-teal/20"
-            >
-              <option value="" className="bg-[#1d1d1f]">Select course</option>
+            <label className="mb-1.5 block text-sm font-medium text-slate-700">Course</label>
+            <select {...register("course")} className="input-field">
+              <option value="">Select course</option>
               {COURSES.map((c) => (
-                <option key={c} value={c} className="bg-[#1d1d1f]">
-                  {c}
-                </option>
+                <option key={c} value={c}>{c}</option>
               ))}
             </select>
-            {errors.course && (
-              <p className="mt-1 text-sm text-red-400">{errors.course.message}</p>
-            )}
+            {errors.course && <p className="mt-1 text-sm text-red-500">{errors.course.message}</p>}
           </div>
-          <Input dark label="Father's Name" error={errors.fatherName?.message} {...register("fatherName")} />
-          <Input dark label="Date of Birth" type="date" error={errors.dob?.message} {...register("dob")} />
-          <Input dark label="Contact Number" error={errors.contactNumber?.message} {...register("contactNumber")} />
-          <Input dark label="Photo URL (optional)" placeholder="https://..." error={errors.photoUrl?.message} {...register("photoUrl")} />
+          <Input label="Father's Name" error={errors.fatherName?.message} {...register("fatherName")} />
+          <Input label="Date of Birth" type="date" error={errors.dob?.message} {...register("dob")} />
+          <Input label="Contact Number" error={errors.contactNumber?.message} {...register("contactNumber")} />
         </div>
       </div>
 
-      <div className="rounded-2xl border border-white/10 bg-[#1d1d1f] p-6">
+      <div className="card p-6">
         <div className="flex items-center justify-between">
-          <h2 className="font-heading text-lg font-semibold text-white">
-            Subject Marks
-          </h2>
+          <h2 className="font-heading font-semibold text-brand">Subject Marks</h2>
           <Button
             type="button"
             variant="outline"
             size="sm"
             onClick={() => append({ subjectName: "", marksObtained: 0, maxMarks: 100 })}
-            className="gap-1 border-white/20 text-white hover:bg-white/10"
           >
-            <Plus size={16} /> Add Subject
+            <Plus size={14} /> Add
           </Button>
         </div>
-
-        {errors.results?.message && (
-          <p className="mt-2 text-sm text-red-400">{errors.results.message}</p>
-        )}
-
         <div className="mt-4 space-y-3">
           {fields.map((field, index) => (
-            <div
-              key={field.id}
-              className="grid gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-4 sm:grid-cols-4"
-            >
-              <Input dark label="Subject" error={errors.results?.[index]?.subjectName?.message} {...register(`results.${index}.subjectName`)} />
-              <Input dark label="Marks Obtained" type="number" error={errors.results?.[index]?.marksObtained?.message} {...register(`results.${index}.marksObtained`)} />
-              <Input dark label="Max Marks" type="number" error={errors.results?.[index]?.maxMarks?.message} {...register(`results.${index}.maxMarks`)} />
+            <div key={field.id} className="grid gap-3 rounded-xl bg-surface p-4 sm:grid-cols-4">
+              <Input label="Subject" error={errors.results?.[index]?.subjectName?.message} {...register(`results.${index}.subjectName`)} />
+              <Input label="Obtained" type="number" error={errors.results?.[index]?.marksObtained?.message} {...register(`results.${index}.marksObtained`)} />
+              <Input label="Max" type="number" error={errors.results?.[index]?.maxMarks?.message} {...register(`results.${index}.maxMarks`)} />
               <div className="flex items-end">
                 {fields.length > 1 && (
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="text-red-400 hover:bg-red-500/10"
-                    onClick={() => remove(index)}
-                  >
-                    <Trash2 size={16} />
+                  <Button type="button" variant="ghost" size="sm" className="text-red-500" onClick={() => remove(index)}>
+                    <Trash2 size={15} />
                   </Button>
                 )}
               </div>
             </div>
           ))}
         </div>
-
-        <div className="mt-4 flex flex-wrap gap-6 rounded-xl bg-teal/10 p-4">
-          <div>
-            <p className="text-xs text-[#86868b]">Total</p>
-            <p className="font-heading text-lg font-bold text-teal">
-              {stats.totalObtained}/{stats.totalMax}
-            </p>
-          </div>
-          <div>
-            <p className="text-xs text-[#86868b]">Percentage</p>
-            <p className="font-heading text-lg font-bold text-teal">
-              {stats.percentage}%
-            </p>
-          </div>
-          <div>
-            <p className="text-xs text-[#86868b]">Status</p>
-            <p className={`font-heading text-lg font-bold ${stats.passed ? "text-teal" : "text-red-400"}`}>
-              {stats.passed ? "PASS" : "FAIL"}
-            </p>
-          </div>
+        <div className="mt-4 flex gap-6 rounded-xl bg-teal/5 p-4 text-sm">
+          <span><strong className="text-brand">{stats.totalObtained}/{stats.totalMax}</strong> Total</span>
+          <span><strong className="text-brand">{stats.percentage}%</strong></span>
+          <span className={stats.passed ? "text-forest font-bold" : "text-red-600 font-bold"}>
+            {stats.passed ? "PASS" : "FAIL"}
+          </span>
         </div>
       </div>
 
-      {error && <p className="text-sm text-red-400">{error}</p>}
+      {error && <p className="text-sm text-red-600">{error}</p>}
 
       <div className="flex gap-3">
         <Button type="submit" disabled={loading}>
-          {loading ? "Saving..." : isEdit ? "Update Student" : "Add Student"}
+          {loading ? "Saving..." : isEdit ? "Update" : "Add Student"}
         </Button>
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => router.push("/admin/students")}
-          className="border-white/20 text-white hover:bg-white/10"
-        >
+        <Button type="button" variant="outline" onClick={() => router.push("/admin/students")}>
           Cancel
         </Button>
       </div>

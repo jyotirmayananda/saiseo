@@ -10,24 +10,9 @@ interface StatsCardsProps {
 }
 
 const cards = [
-  {
-    key: "students",
-    label: "Total Students",
-    icon: Users,
-    color: "text-teal bg-teal/10",
-  },
-  {
-    key: "courses",
-    label: "Total Courses",
-    icon: BookOpen,
-    color: "text-maroon bg-maroon/10",
-  },
-  {
-    key: "recent",
-    label: "Recent Entries",
-    icon: Clock,
-    color: "text-forest bg-forest/10",
-  },
+  { key: "students", label: "Total Students", icon: Users },
+  { key: "courses", label: "Total Courses", icon: BookOpen },
+  { key: "recent", label: "Recent Entries", icon: Clock },
 ] as const;
 
 export default function StatsCards({
@@ -46,22 +31,20 @@ export default function StatsCards({
       {cards.map((card, i) => (
         <motion.div
           key={card.key}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: i * 0.1 }}
-          className="rounded-2xl border border-white/10 bg-[#1d1d1f] p-6"
+          transition={{ delay: i * 0.08 }}
+          className="card-hover p-5"
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-[#86868b]">{card.label}</p>
-              <p className="mt-1 font-heading text-3xl font-semibold text-white">
+              <p className="text-sm text-muted">{card.label}</p>
+              <p className="mt-1 font-heading text-3xl font-bold text-brand">
                 {values[card.key]}
               </p>
             </div>
-            <div
-              className={`flex h-12 w-12 items-center justify-center rounded-xl ${card.color}`}
-            >
-              <card.icon size={24} />
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-teal/10 text-teal-dark">
+              <card.icon size={22} />
             </div>
           </div>
         </motion.div>

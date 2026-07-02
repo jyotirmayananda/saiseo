@@ -9,6 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        brand: {
+          DEFAULT: "#0c2d48",
+          light: "#1a5276",
+          dark: "#0a2540",
+        },
         teal: {
           DEFAULT: "#2DBFB8",
           dark: "#1FA39D",
@@ -29,14 +34,7 @@ const config: Config = {
         },
         surface: {
           DEFAULT: "#f8fcff",
-          dark: "#1d1d1f",
-          darker: "#0c2d48",
-        },
-        sky: {
-          deep: "#0c2d48",
-          mid: "#38bdf8",
-          light: "#e0f7fa",
-          pale: "#f0f9ff",
+          2: "#f0f9ff",
         },
       },
       fontFamily: {
@@ -45,21 +43,10 @@ const config: Config = {
       },
       borderRadius: {
         "4xl": "2rem",
-        "5xl": "2.5rem",
       },
-      animation: {
-        "fade-up": "fadeUp 0.8s ease-out forwards",
-        shimmer: "shimmer 2s linear infinite",
-      },
-      keyframes: {
-        fadeUp: {
-          "0%": { opacity: "0", transform: "translateY(24px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        shimmer: {
-          "0%": { backgroundPosition: "-200% 0" },
-          "100%": { backgroundPosition: "200% 0" },
-        },
+      boxShadow: {
+        soft: "0 4px 24px -4px rgba(12, 45, 72, 0.08)",
+        card: "0 8px 32px -8px rgba(12, 45, 72, 0.12)",
       },
     },
   },

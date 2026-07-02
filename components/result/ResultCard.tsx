@@ -26,14 +26,12 @@ interface ResultCardProps {
 
 export default function ResultCard({ data }: ResultCardProps) {
   return (
-    <div className="overflow-hidden rounded-3xl border border-white/10 bg-[#1d1d1f]">
-      <div className="border-b border-white/10 px-6 py-5">
-        <p className="text-xs font-semibold uppercase tracking-widest text-teal">
+    <div className="card overflow-hidden shadow-card">
+      <div className="bg-brand px-6 py-4">
+        <p className="text-xs font-bold uppercase tracking-wider text-teal-light">
           Examination Result
         </p>
-        <p className="mt-1 font-heading text-lg font-semibold text-white">
-          Sai SEO Solution
-        </p>
+        <p className="font-heading font-semibold text-white">Sai SEO Solution</p>
       </div>
 
       <div className="space-y-5 p-6">
@@ -44,19 +42,13 @@ export default function ResultCard({ data }: ResultCardProps) {
           <Info label="Father's Name" value={data.student.fatherName} />
         </div>
 
-        <div className="overflow-hidden rounded-2xl border border-white/10">
+        <div className="overflow-hidden rounded-xl border border-slate-200">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-white/10 bg-white/5">
-                <th className="px-4 py-3 text-left font-medium text-[#86868b]">
-                  Subject
-                </th>
-                <th className="px-4 py-3 text-center font-medium text-[#86868b]">
-                  Marks
-                </th>
-                <th className="px-4 py-3 text-center font-medium text-[#86868b]">
-                  Max
-                </th>
+              <tr className="border-b border-slate-200 bg-surface">
+                <th className="px-4 py-2.5 text-left font-semibold text-muted">Subject</th>
+                <th className="px-4 py-2.5 text-center font-semibold text-muted">Marks</th>
+                <th className="px-4 py-2.5 text-center font-semibold text-muted">Max</th>
               </tr>
             </thead>
             <tbody>
@@ -65,16 +57,14 @@ export default function ResultCard({ data }: ResultCardProps) {
                   key={r.subjectName}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: i * 0.05 }}
-                  className="border-b border-white/5 last:border-0"
+                  transition={{ delay: i * 0.04 }}
+                  className="border-b border-slate-100 last:border-0"
                 >
-                  <td className="px-4 py-3 text-white">{r.subjectName}</td>
-                  <td className="px-4 py-3 text-center font-medium text-white">
+                  <td className="px-4 py-2.5 text-brand">{r.subjectName}</td>
+                  <td className="px-4 py-2.5 text-center font-semibold text-brand">
                     {r.marksObtained}
                   </td>
-                  <td className="px-4 py-3 text-center text-[#86868b]">
-                    {r.maxMarks}
-                  </td>
+                  <td className="px-4 py-2.5 text-center text-muted">{r.maxMarks}</td>
                 </motion.tr>
               ))}
             </tbody>
@@ -85,11 +75,11 @@ export default function ResultCard({ data }: ResultCardProps) {
           <Stat label="Total" value={`${data.totalObtained}/${data.totalMax}`} />
           <Stat label="Percentage" value={`${data.percentage}%`} />
           <Stat label="Grade" value={data.grade} />
-          <div className="flex flex-col items-center justify-center rounded-2xl bg-white/5 p-3">
-            <span className="text-xs text-[#86868b]">Status</span>
+          <div className="flex flex-col items-center justify-center rounded-xl bg-surface p-3">
+            <span className="text-xs text-muted">Status</span>
             <span
-              className={`mt-1 flex items-center gap-1 text-sm font-bold ${
-                data.passed ? "text-teal" : "text-red-400"
+              className={`mt-0.5 flex items-center gap-1 text-sm font-bold ${
+                data.passed ? "text-forest" : "text-red-600"
               }`}
             >
               {data.passed ? (
@@ -112,19 +102,17 @@ export default function ResultCard({ data }: ResultCardProps) {
 function Info({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <p className="text-xs text-[#86868b]">{label}</p>
-      <p className="mt-0.5 font-medium text-white">{value}</p>
+      <p className="text-xs text-muted">{label}</p>
+      <p className="mt-0.5 font-medium text-brand">{value}</p>
     </div>
   );
 }
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl bg-white/5 p-3 text-center">
-      <p className="text-xs text-[#86868b]">{label}</p>
-      <p className="mt-0.5 font-heading text-lg font-semibold text-white">
-        {value}
-      </p>
+    <div className="rounded-xl bg-surface p-3 text-center">
+      <p className="text-xs text-muted">{label}</p>
+      <p className="mt-0.5 font-heading text-lg font-bold text-brand">{value}</p>
     </div>
   );
 }
