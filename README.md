@@ -41,6 +41,23 @@ Open [http://localhost:3000](http://localhost:3000).
 - `SEO2024002` — Priya Das (DCA, Pass)
 - `SEO2024003` — Amit Patnaik (Python, Fail)
 
+## Deploy to Netlify
+
+1. Push to GitHub and connect the repo in Netlify
+2. **Remove** manual publish directory `.next` in Netlify UI — use `netlify.toml` (includes `@netlify/plugin-nextjs`)
+3. Add these **Environment variables** in Netlify → Site settings → Environment variables:
+
+| Variable | Example |
+|---|---|
+| `DATABASE_URL` | PostgreSQL URL from [Neon](https://neon.tech) or Supabase |
+| `JWT_SECRET` | Random secure string |
+| `ADMIN_EMAIL` | `admin@saiseo.com` |
+| `ADMIN_PASSWORD` | Your admin password |
+
+4. Change `prisma/schema.prisma` datasource to `postgresql` for production (SQLite does not work on Netlify)
+5. Run migrations against your production DB: `npx prisma migrate deploy`
+6. Seed admin user: `npm run db:seed`
+
 ## Deploy to Vercel
 
 1. Push to GitHub

@@ -1,5 +1,8 @@
 import Sidebar from "@/components/admin/Sidebar";
 
+// Avoid Prisma queries at build time (Netlify has no DB during build)
+export const dynamic = "force-dynamic";
+
 export default function AdminPanelLayout({
   children,
 }: {
