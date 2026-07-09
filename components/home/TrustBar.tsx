@@ -12,9 +12,9 @@ const features = [
 
 export default function TrustBar() {
   return (
-    <section className="border-y border-slate-100 bg-white py-10">
+    <section className="border-y border-slate-100 bg-white py-8 sm:py-10">
       <div className="container-main">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
           {features.map((item, i) => (
             <motion.div
               key={item.title}
@@ -22,7 +22,7 @@ export default function TrustBar() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.06 }}
-              className="flex items-center gap-4"
+              className="flex flex-col items-center gap-3 text-center sm:flex-row sm:items-center sm:gap-4 sm:text-left"
             >
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-teal/10 text-teal-dark">
                 <item.icon size={20} />

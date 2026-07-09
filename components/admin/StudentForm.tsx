@@ -10,10 +10,7 @@ import { studentSchema, StudentFormData } from "@/lib/validations";
 import { calculateResultStats } from "@/lib/utils";
 import { Plus, Trash2 } from "lucide-react";
 
-const COURSES = [
-  "PGDCA", "DCA", "CCA", "C", "C++", "PHP", "Java", ".NET",
-  "Oracle", "Tally", "Python", "Internet", "Visual Basic", "AutoCAD",
-];
+import { ALL_COURSE_NAMES } from "@/lib/courses";
 
 interface StudentFormProps {
   studentId?: string;
@@ -94,7 +91,7 @@ export default function StudentForm({ studentId, initialData }: StudentFormProps
             <label className="mb-1.5 block text-sm font-medium text-slate-700">Course</label>
             <select {...register("course")} className="input-field">
               <option value="">Select course</option>
-              {COURSES.map((c) => (
+              {ALL_COURSE_NAMES.map((c) => (
                 <option key={c} value={c}>{c}</option>
               ))}
             </select>

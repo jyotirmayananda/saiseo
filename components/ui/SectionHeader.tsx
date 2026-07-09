@@ -33,7 +33,7 @@ export default function SectionHeader({
       </h2>
       {description && (
         <p
-          className={`mt-4 text-lg leading-relaxed ${
+          className={`mt-3 text-base leading-relaxed sm:mt-4 sm:text-lg ${
             light ? "text-white/75" : "text-muted"
           }`}
         >

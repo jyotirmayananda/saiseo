@@ -19,6 +19,12 @@ export const metadata: Metadata = {
     "Sai SEO Solution - A Unit of Software & Hardware Solution. Quality computer courses, result lookup, and IT services in Berhampur.",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover" as const,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{

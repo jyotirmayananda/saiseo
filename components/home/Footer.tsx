@@ -7,7 +7,7 @@ import { Phone, Mail, MapPin } from "lucide-react";
 export default function Footer() {
   return (
     <footer id="contact" className="border-t border-white/10 bg-brand text-white/70">
-      <div className="container-main py-14">
+      <div className="container-main py-12 pb-8 sm:py-14">
         <div className="grid gap-10 md:grid-cols-3">
           <div>
             <Link href="/" className="flex items-center gap-2.5">
@@ -30,7 +30,8 @@ export default function Footer() {
               {[
                 { href: "/#courses", label: "Courses" },
                 { href: "/#services", label: "Services" },
-                { href: "/#branches", label: "Branches" },
+                { href: "/gallery", label: "Gallery" },
+                { href: "/#location", label: "Location" },
                 { href: "/result", label: "Check Result" },
               ].map((link) => (
                 <li key={link.href}>
